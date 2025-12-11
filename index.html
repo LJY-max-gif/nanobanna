@@ -338,6 +338,62 @@
             max-width: 100%;
         }
 
+        .demo-fallback {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: var(--background-light);
+            border-radius: 8px;
+            min-height: 450px;
+            justify-content: center;
+        }
+
+        .demo-image img {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .demo-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button.primary {
+            background: linear-gradient(135deg, var(--banana-yellow), var(--banana-yellow-dark));
+            color: white;
+        }
+
+        .demo-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .demo-button.secondary {
+            background: var(--background-dark);
+            color: white;
+        }
+
+        .demo-button.secondary:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
         .demo-note {
             color: var(--text-secondary);
             font-size: 0.9rem;
@@ -1287,14 +1343,19 @@
 
             <div class="demo-container fade-in">
                 <div class="demo-wrapper">
-                    <iframe
-                        src="https://black-forest-labs-flux-2-dev.hf.space"
-                        frameborder="0"
-                        width="850"
-                        height="450"
-                        title="Flux 2 Pro Demo"
-                        loading="lazy"
-                    ></iframe>
+                    <div class="demo-fallback">
+                        <div class="demo-image">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='850' height='450' viewBox='0 0 850 450'%3E%3Crect width='850' height='450' fill='%23f3f4f6'/%3E%3Ctext x='425' y='200' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' fill='%23666'%3EAI 图像生成演示%3C/text%3E%3Ctext x='425' y='230' text-anchor='middle' font-family='Arial, sans-serif' font-size='18' fill='%23999'%3E点击下方按钮体验%3C/text%3E%3C/svg%3E" alt="Demo placeholder">
+                        </div>
+                        <div class="demo-buttons">
+                            <a href="https://gemini.google.com" target="_blank" class="demo-button primary">
+                                <i class="fas fa-rocket"></i> 体验 Nano Banana
+                            </a>
+                            <a href="https://black-forest-labs-flux-2-dev.hf.space" target="_blank" class="demo-button secondary">
+                                <i class="fas fa-external-link-alt"></i> 在新窗口打开 Flux 2 Pro
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="demo-note">
                     <p><i class="fas fa-info-circle"></i> 这是 Flux 2 Pro 的演示界面。要体验 Nano Banana，请访问 <a href="https://gemini.google.com" target="_blank">gemini.google.com</a></p>
