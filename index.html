@@ -1443,6 +1443,9 @@
         <div class="container">
             <div class="generator-container fade-in">
                 <h2 class="generator-title">🎨 在线图片生成器</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                    <i class="fas fa-info-circle"></i> 演示模式 - 实际生成需要前往官方平台
+                </p>
 
                 <form class="generator-form" id="generateForm">
                     <div class="form-group">
@@ -2324,17 +2327,17 @@
     <script src="./vercel-analytics.js" defer></script>
 
     <script>
-        // Image Generator
-        const API_KEY = 'sk-CC8MrMz1PcD19OCMvyKZISmFVprZeCqkKkSmOVBNNLg34b8p';
-        const API_BASE = 'https://api.apimart.ai';
+        // Image Generator - Demo Mode
+        // 注意：这是演示模式，展示了完整的 UI 交互
+        // 实际的图片生成需要后端服务来保护 API Key
 
-        let currentTaskId = null;
-        let progressInterval = null;
-        let timeoutTimer = null;
-        const TIMEOUT_DURATION = 15 * 60 * 1000;
+        let isGenerating = false;
+        let progressAnimation = null;
 
         document.getElementById('generateForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            if (isGenerating) return;
 
             const prompt = document.getElementById('prompt').value;
             const model = document.getElementById('model').value;
@@ -2342,6 +2345,7 @@
             const n = parseInt(document.getElementById('n').value);
 
             const generateBtn = document.getElementById('generateBtn');
+            isGenerating = true;
             generateBtn.disabled = true;
             generateBtn.textContent = '生成中...';
 
@@ -2349,102 +2353,58 @@
             document.getElementById('error').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
 
-            try {
-                const response = await fetch(`${API_BASE}/v1/images/generations`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model,
-                        prompt: prompt,
-                        size: size,
-                        n: n
-                    })
-                });
+            // 模拟进度更新
+            let progress = 0;
+            progressAnimation = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                document.getElementById('progress').style.width = `${progress}%`;
 
-                const data = await response.json();
+                const remainingTime = Math.ceil((100 - progress) / 10);
+                document.getElementById('timeInfo').textContent = `预计完成时间：${remainingTime}秒`;
+            }, 500);
 
-                if (data.code === 200 && data.data && data.data[0]) {
-                    currentTaskId = data.data[0].task_id;
-                    startProgressPolling();
+            // 模拟生成完成
+            setTimeout(() => {
+                clearInterval(progressAnimation);
+                document.getElementById('progress').style.width = '100%';
 
-                    timeoutTimer = setTimeout(() => {
-                        stopProgressPolling();
-                        showError('生成超时，请稍后再试');
-                        resetForm();
-                    }, TIMEOUT_DURATION);
-                } else {
-                    throw new Error(data.message || '创建任务失败');
-                }
-            } catch (error) {
-                showError(error.message);
+                // 显示演示结果
+                showDemoImages(prompt, n);
                 resetForm();
-            }
+            }, 5000);
         });
 
-        function startProgressPolling() {
-            progressInterval = setInterval(async () => {
-                try {
-                    const response = await fetch(`${API_BASE}/v1/tasks/${currentTaskId}`, {
-                        headers: {
-                            'Authorization': `Bearer ${API_KEY}`
-                        }
-                    });
-
-                    const data = await response.json();
-
-                    if (data.code === 200 && data.data) {
-                        const task = data.data;
-                        const progress = task.progress || 0;
-                        const estimated = task.estimated_time || 0;
-
-                        document.getElementById('progress').style.width = `${progress}%`;
-
-                        if (estimated > 0) {
-                            document.getElementById('timeInfo').textContent = `预计完成时间：${Math.ceil(estimated / 60)}分钟`;
-                        }
-
-                        if (task.status === 'completed' && task.result && task.result.images) {
-                            stopProgressPolling();
-                            clearTimeout(timeoutTimer);
-                            showImages(task.result.images);
-                            resetForm();
-                        } else if (task.status === 'failed') {
-                            stopProgressPolling();
-                            clearTimeout(timeoutTimer);
-                            showError('图片生成失败，请重试');
-                            resetForm();
-                        }
-                    }
-                } catch (error) {
-                    console.error('查询任务状态失败:', error);
-                }
-            }, 2000);
-        }
-
-        function stopProgressPolling() {
-            if (progressInterval) {
-                clearInterval(progressInterval);
-                progressInterval = null;
-            }
-        }
-
-        function showImages(images) {
+        function showDemoImages(prompt, count) {
             const container = document.getElementById('imageContainer');
             container.innerHTML = '';
 
-            images.forEach(imageGroup => {
-                if (imageGroup.url && imageGroup.url.length > 0) {
-                    imageGroup.url.forEach((url, index) => {
-                        const img = document.createElement('img');
-                        img.src = url;
-                        img.alt = `生成的图片 ${index + 1}`;
-                        container.appendChild(img);
-                    });
-                }
-            });
+            // 创建演示图片
+            for (let i = 0; i < count; i++) {
+                const demoImage = document.createElement('div');
+                demoImage.style.cssText = `
+                    width: 100%;
+                    aspect-ratio: 1;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.2rem;
+                    text-align: center;
+                    padding: 2rem;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                `;
+                demoImage.innerHTML = `
+                    <div>
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                        <div>演示图片 ${i + 1}</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">"${prompt.substring(0, 30)}..."</div>
+                    </div>
+                `;
+                container.appendChild(demoImage);
+            }
 
             document.getElementById('loading').style.display = 'none';
             document.getElementById('result').style.display = 'block';
@@ -2459,6 +2419,7 @@
 
         function resetForm() {
             const generateBtn = document.getElementById('generateBtn');
+            isGenerating = false;
             generateBtn.disabled = false;
             generateBtn.textContent = '生成图片';
             document.getElementById('loading').style.display = 'none';
