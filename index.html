@@ -314,6 +314,146 @@
             color: var(--text-secondary);
         }
 
+        /* Image Generator Section */
+        .image-generator {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFFFFF 100%);
+        }
+
+        .generator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .generator-title {
+            font-size: 2rem;
+            color: var(--dark-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .generator-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group textarea,
+        .form-group select {
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--banana-yellow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .generator-btn {
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--dark-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .generator-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .generator-btn:disabled {
+            background: var(--light-gray);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .generator-loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .time-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .generator-result {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--dark-primary);
+            margin-bottom: 1rem;
+        }
+
+        .result-images {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .result-images img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .generator-error {
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
         /* Interactive Demo Section */
         .interactive-demo {
             padding: 80px 0;
@@ -324,74 +464,33 @@
             text-align: center;
         }
 
-        .demo-wrapper {
-            background: var(--white);
-            border-radius: 16px;
-            box-shadow: var(--shadow-lg);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
-
-        .demo-wrapper iframe {
-            border-radius: 8px;
-            max-width: 100%;
-        }
-
-        .demo-fallback {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2rem;
-            background: var(--background-light);
-            border-radius: 8px;
-            min-height: 450px;
-            justify-content: center;
-        }
-
-        .demo-image img {
-            border-radius: 8px;
-            max-width: 100%;
-            height: auto;
-        }
-
         .demo-buttons {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
             justify-content: center;
+            margin: 2rem 0;
         }
 
         .demo-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         .demo-button.primary {
-            background: linear-gradient(135deg, var(--banana-yellow), var(--banana-yellow-dark));
-            color: white;
+            background: var(--gradient-primary);
+            color: var(--dark-primary);
+            box-shadow: var(--shadow-md);
         }
 
         .demo-button.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
-        }
-
-        .demo-button.secondary {
-            background: var(--background-dark);
-            color: white;
-        }
-
-        .demo-button.secondary:hover {
-            background: #333;
-            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .demo-note {
@@ -569,12 +668,15 @@
             padding: 2rem;
             border-radius: 16px;
             text-align: center;
-            display: none;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
 
         .testimonial-card.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .testimonial-nav {
@@ -1273,6 +1375,7 @@
             <ul class="nav-links">
                 <li><a href="#advantages">核心优势</a></li>
                 <li><a href="#features">独特功能</a></li>
+                <li><a href="#generator">图片生成器</a></li>
                 <li><a href="#demo">在线体验</a></li>
                 <li><a href="#testimonials">用户评价</a></li>
                 <li><a href="#comparison">性能对比</a></li>
@@ -1335,31 +1438,75 @@
         </div>
     </section>
 
+    <!-- Image Generator Section -->
+    <section class="image-generator" id="generator">
+        <div class="container">
+            <div class="generator-container fade-in">
+                <h2 class="generator-title">🎨 在线图片生成器</h2>
+
+                <form class="generator-form" id="generateForm">
+                    <div class="form-group">
+                        <label for="prompt">描述你想生成的图片：</label>
+                        <textarea id="prompt" placeholder="例如：一只可爱的猫咪在花园里玩耍，阳光明媚，高质量摄影风格" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="model">模型：</label>
+                        <select id="model" required>
+                            <option value="gpt-4o-image">GPT-4o Image (推荐)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="size">尺寸比例：</label>
+                        <select id="size" required>
+                            <option value="1:1">正方形 (1:1)</option>
+                            <option value="2:3">竖版 (2:3)</option>
+                            <option value="3:2">横版 (3:2)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="n">生成数量：</label>
+                        <select id="n" required>
+                            <option value="1">1张</option>
+                            <option value="2">2张</option>
+                            <option value="4">4张</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="generator-btn" id="generateBtn">生成图片</button>
+                </form>
+
+                <div class="generator-loading" id="loading">
+                    <p>正在生成图片，请稍候...</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress"></div>
+                    </div>
+                    <p class="time-info" id="timeInfo">预计时间：计算中...</p>
+                </div>
+
+                <div class="generator-error" id="error"></div>
+
+                <div class="generator-result" id="result">
+                    <h3 class="result-title">生成结果：</h3>
+                    <div class="result-images" id="imageContainer"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Interactive Demo Section -->
     <section class="interactive-demo" id="demo">
         <div class="container">
             <h2 class="section-title fade-in">立即体验 AI 图像生成</h2>
-            <p class="section-subtitle fade-in">试试 Flux 2 Pro - Nano Banana 强大的竞品模型</p>
+            <p class="section-subtitle fade-in">前往官方平台体验 Nano Banana 的强大功能</p>
 
-            <div class="demo-container fade-in">
-                <div class="demo-wrapper">
-                    <div class="demo-fallback">
-                        <div class="demo-image">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='850' height='450' viewBox='0 0 850 450'%3E%3Crect width='850' height='450' fill='%23f3f4f6'/%3E%3Ctext x='425' y='200' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' fill='%23666'%3EAI 图像生成演示%3C/text%3E%3Ctext x='425' y='230' text-anchor='middle' font-family='Arial, sans-serif' font-size='18' fill='%23999'%3E点击下方按钮体验%3C/text%3E%3C/svg%3E" alt="Demo placeholder">
-                        </div>
-                        <div class="demo-buttons">
-                            <a href="https://gemini.google.com" target="_blank" class="demo-button primary">
-                                <i class="fas fa-rocket"></i> 体验 Nano Banana
-                            </a>
-                            <a href="https://black-forest-labs-flux-2-dev.hf.space" target="_blank" class="demo-button secondary">
-                                <i class="fas fa-external-link-alt"></i> 在新窗口打开 Flux 2 Pro
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="demo-note">
-                    <p><i class="fas fa-info-circle"></i> 这是 Flux 2 Pro 的演示界面。要体验 Nano Banana，请访问 <a href="https://gemini.google.com" target="_blank">gemini.google.com</a></p>
-                </div>
+            <div class="demo-buttons fade-in">
+                <a href="https://gemini.google.com" target="_blank" class="demo-button primary">
+                    <i class="fas fa-rocket"></i>
+                    立即体验 Nano Banana
+                </a>
             </div>
         </div>
     </section>
@@ -1497,7 +1644,7 @@
             <p class="section-subtitle fade-in">来自全球用户的声音</p>
 
             <div class="testimonials-carousel">
-                <div class="testimonial-card fade-in active">
+                <div class="testimonial-card active">
                     <div class="testimonial-avatar">🎨</div>
                     <p class="testimonial-text">
                         "Okay, Nano Banana is ridiculously fast. It feels illegal. By the time I lift my finger from the enter key, the image is already there. 🤯"
@@ -2174,7 +2321,149 @@
         </div>
     </footer>
 
+    <script src="./vercel-analytics.js" defer></script>
+
     <script>
+        // Image Generator
+        const API_KEY = 'sk-CC8MrMz1PcD19OCMvyKZISmFVprZeCqkKkSmOVBNNLg34b8p';
+        const API_BASE = 'https://api.apimart.ai';
+
+        let currentTaskId = null;
+        let progressInterval = null;
+        let timeoutTimer = null;
+        const TIMEOUT_DURATION = 15 * 60 * 1000;
+
+        document.getElementById('generateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const prompt = document.getElementById('prompt').value;
+            const model = document.getElementById('model').value;
+            const size = document.getElementById('size').value;
+            const n = parseInt(document.getElementById('n').value);
+
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = true;
+            generateBtn.textContent = '生成中...';
+
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_BASE}/v1/images/generations`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: model,
+                        prompt: prompt,
+                        size: size,
+                        n: n
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.code === 200 && data.data && data.data[0]) {
+                    currentTaskId = data.data[0].task_id;
+                    startProgressPolling();
+
+                    timeoutTimer = setTimeout(() => {
+                        stopProgressPolling();
+                        showError('生成超时，请稍后再试');
+                        resetForm();
+                    }, TIMEOUT_DURATION);
+                } else {
+                    throw new Error(data.message || '创建任务失败');
+                }
+            } catch (error) {
+                showError(error.message);
+                resetForm();
+            }
+        });
+
+        function startProgressPolling() {
+            progressInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${API_BASE}/v1/tasks/${currentTaskId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${API_KEY}`
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (data.code === 200 && data.data) {
+                        const task = data.data;
+                        const progress = task.progress || 0;
+                        const estimated = task.estimated_time || 0;
+
+                        document.getElementById('progress').style.width = `${progress}%`;
+
+                        if (estimated > 0) {
+                            document.getElementById('timeInfo').textContent = `预计完成时间：${Math.ceil(estimated / 60)}分钟`;
+                        }
+
+                        if (task.status === 'completed' && task.result && task.result.images) {
+                            stopProgressPolling();
+                            clearTimeout(timeoutTimer);
+                            showImages(task.result.images);
+                            resetForm();
+                        } else if (task.status === 'failed') {
+                            stopProgressPolling();
+                            clearTimeout(timeoutTimer);
+                            showError('图片生成失败，请重试');
+                            resetForm();
+                        }
+                    }
+                } catch (error) {
+                    console.error('查询任务状态失败:', error);
+                }
+            }, 2000);
+        }
+
+        function stopProgressPolling() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
+
+        function showImages(images) {
+            const container = document.getElementById('imageContainer');
+            container.innerHTML = '';
+
+            images.forEach(imageGroup => {
+                if (imageGroup.url && imageGroup.url.length > 0) {
+                    imageGroup.url.forEach((url, index) => {
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.alt = `生成的图片 ${index + 1}`;
+                        container.appendChild(img);
+                    });
+                }
+            });
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function resetForm() {
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = false;
+            generateBtn.textContent = '生成图片';
+            document.getElementById('loading').style.display = 'none';
+        }
+
         // Particle System
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -2291,26 +2580,27 @@
         function changeTestimonial(index) {
             const carousel = document.querySelector('.testimonials-carousel');
             const navButtons = document.querySelectorAll('.testimonial-btn');
+            const currentCard = carousel.querySelector('.testimonial-card');
 
             // Update active nav button
             navButtons.forEach((btn, i) => {
                 btn.classList.toggle('active', i === index);
             });
 
-            // Create new testimonial card
-            const testimonial = testimonials[index];
-            const newCard = document.createElement('div');
-            newCard.className = 'testimonial-card fade-in active';
-            newCard.innerHTML = `
-                <div class="testimonial-avatar">${testimonial.avatar}</div>
-                <p class="testimonial-text">${testimonial.text}</p>
-                <div class="testimonial-author">${testimonial.author}</div>
-                <div class="testimonial-handle">${testimonial.handle}</div>
-            `;
+            // Remove active class for fade out
+            currentCard.classList.remove('active');
 
-            // Replace current card
-            const currentCard = carousel.querySelector('.testimonial-card');
-            carousel.replaceChild(newCard, currentCard);
+            // After fade out, update content and fade in
+            setTimeout(() => {
+                const testimonial = testimonials[index];
+                currentCard.querySelector('.testimonial-avatar').textContent = testimonial.avatar;
+                currentCard.querySelector('.testimonial-text').textContent = testimonial.text;
+                currentCard.querySelector('.testimonial-author').textContent = testimonial.author;
+                currentCard.querySelector('.testimonial-handle').textContent = testimonial.handle;
+
+                // Add active class for fade in
+                currentCard.classList.add('active');
+            }, 300);
         }
 
         // Auto-rotate testimonials
